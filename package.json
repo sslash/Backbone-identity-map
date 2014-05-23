@@ -1,6 +1,6 @@
 {
     "name": "backbone-identity-map",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Identity map implementation for BackboneJS. Uses IndexDB to cache objects",
     "main": "index.js",
     "scripts": {

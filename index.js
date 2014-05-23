@@ -27,7 +27,7 @@
     Backbone.IdentityMap.prototype.init = function (opts) {
         this.collectionsMap = opts.collections;
 
-        this.cache = new IndexDbCache();
+        this.cache = new IndexDbCache({version : opts.version});
 
         // Create the IndexDB stores. Key is the Backbone Models' Id
         var stores = this.collectionsMap.map(function(coll) {
