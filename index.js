@@ -1,10 +1,10 @@
 (function (root, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['backbone', 'indexDbCache'], factory);
+        define(['backbone', 'indexed-db-cache'], factory);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('backbone'), require('indexDbCache'));
+        module.exports = factory(require('backbone'), require('indexed-db-cache'));
     } else {
-        root.IdentityMap = factory(root.backbone, root.indexDbCache);
+        root.IdentityMap = factory(root.backbone, root['indexed-db-cache']);
     }
 }(this, function (Backbone, IndexDbCache) {
 
