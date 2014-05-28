@@ -37,7 +37,7 @@
             };
         });
 
-        this.cache.init('BBidentityMap', stores)
+        this.cache.init(opts.name || 'BBidentityMap', stores)
     };
 
     Backbone.IdentityMap.prototype.findOne = function(id, collectionKey, next) {
@@ -70,9 +70,9 @@
             fetchedCollections.push(coll)
             if (++i >= len ) {
                 next(fetchedCollections);
+            } else {
+                this.find(collectionKeys[i], loop.bind(this));
             }
-
-            this.find(collectionKeys[i], loop.bind(this));
         }
     };
 
@@ -82,7 +82,7 @@
             var collection = _this._getCollectionConstr(collectionKey);
 
             if (!res || !res.length) {
-                collection = this._eagerlyFetchCollection(collection);
+                collection = _this._eagerlyFetchCollection(collection);
                 collection.models.forEach(function(model) {
                     _this.cache.put(collectionKey, model.toJSON());
                 });
