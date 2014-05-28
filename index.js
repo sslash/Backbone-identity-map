@@ -61,7 +61,23 @@
         })
     };
 
+    Backbone.IdentityMap.prototype.findMany = function (collectionKeys, next) {
+        var i = 0, len = collectionKeys.length, fetchedCollections = [];
+
+        this.find(collectionKeys[i], loop.bind(this));
+
+        function loop (coll) {
+            fetchedCollections.push(coll)
+            if (++i >= len ) {
+                next(fetchedCollections);
+            }
+
+            this.find(collectionKeys[i], loop.bind(this));
+        }
+    };
+
     Backbone.IdentityMap.prototype.find = function (collectionKey, next) {
+        var _this = this;
         this.cache.find(collectionKey, function (res) {
             var collection = _this._getCollectionConstr(collectionKey);
 
