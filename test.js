@@ -5,6 +5,7 @@ describe('index', function (){
     var collections = [
         {'swag_collection':
             Backbone.Collection.extend({
+                fetch : function () { this.fetchedColl = true; },
                 model : Backbone.Model.extend({
                     fetch : function () {
                         this.set({'fetched' : 'yeah buddy'});
@@ -26,19 +27,5 @@ describe('index', function (){
             done();
         });
         map.findOne('1337', 'swag_collection');
-    });
-
-    it('should return a stored model thats been eagerly stored', function () {
-        var map = new Backbone.IdentityMap({collections : collections});
-        var spy = sinon.spy(map.cache.put);
-
-        map.findOne('7331', 'swag_collection', function (res) {
-            // should be eagerly fetched now..
-            expect(spy.calledOnce).to.be.true;
-            map.findOne('7331', 'swag_collection', function (res) {
-                expect(spy.calledOnce).to.be.true;
-                expect(res.get('fetched')).to.equal('yeah buddy')
-            })
-        });
     });
 });
